@@ -7,13 +7,18 @@ import { checkCode } from './checkCode'
 
 type InterfacesMap = Record<`is${ContractInterface}`, boolean>
 
+export type CheckInterfacesReturnType = InterfacesMap & {
+  isContract: boolean
+  type: Nullable<ContractType>
+}
+
 export const checkInterfaces = async (
   address: Nullable<HexString>,
   provider: Nullable<IJsonRpcProvider>,
-) => {
+): Promise<CheckInterfacesReturnType> => {
   const { isContract } = await checkCode(address, provider)
 
-  const interfaces: InterfacesMap = {
+  let interfaces: InterfacesMap = {
     isIERC165: false,
     isIERC721: false,
     isIERC721Metadata: false,
@@ -35,7 +40,7 @@ export const checkInterfaces = async (
         interfaces.isIERC165 = true
 
         // Check if it's also other interfaces with the `supportsInterface` method
-        return {
+        interfaces = {
           ...interfaces,
           isIERC721: await maybeErc165Contract.supportsInterface(ContractInterfaceId.IERC721),
           isIERC721Metadata: await maybeErc165Contract.supportsInterface(ContractInterfaceId.IERC721Metadata),
@@ -57,13 +62,11 @@ export const checkInterfaces = async (
         await maybeErc20Contract.balanceOf(WHITE_ADDRESS)
 
         // No errors thrown, so the contract is probably ERC-20
-        return {
+        interfaces = {
           ...interfaces,
           isIERC20: true,
         }
-      } catch (e) {
-        return interfaces
-      }
+      } catch (e) {}
     }
   }
 

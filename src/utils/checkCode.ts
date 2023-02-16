@@ -18,3 +18,5 @@ export const checkCode = async (
     isContract,
   }
 }
+
+export type CheckCodeReturnType = ReturnType<typeof checkCode>
