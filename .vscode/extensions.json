@@ -1,5 +1,6 @@
 {
   "recommendations": [
-    "ZixuanChen.vitest-explorer"
+    "ZixuanChen.vitest-explorer",
+    "dbaeumer.vscode-eslint",
   ]
 }

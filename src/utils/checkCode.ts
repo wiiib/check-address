@@ -11,7 +11,7 @@ export const checkCode = async (
 
   // It is a smart contract (i.e. a token), if the address stores some code
   // Otherwise it's just a regular address
-  const isContract = code && code.length > 0
+  const isContract = code && code.length > 0 && code !== '0x'
 
   return {
     code,
