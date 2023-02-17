@@ -35,7 +35,7 @@ export function resolveIpfs<T>(
 
     // Array or object
     if (Array.isArray(obj)) {
-      return obj.map(item => resolveIpfs(item, options)) as T
+      return obj.map((item) => resolveIpfs(item, options)) as T
     } else {
       return Object.entries(obj).reduce((res, [key, value]) => {
         res[key] = resolveIpfs(value, options)
