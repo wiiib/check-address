@@ -1,8 +1,8 @@
 import { Contract } from 'ethers'
 import type { MaybePromise, Nullable } from '@voire/type-utils'
 import { ofetch } from 'ofetch'
-import type { HexString, IJsonRpcProvider } from '../models'
-import { resolveIpfs } from './resolveIPFS'
+import type { HexString, IJsonRpcProvider } from '../../models'
+import { resolveIpfs } from '../resolveIPFS'
 
 export interface TokenMetadataReturnType<
   TMetadata extends Record<string, any> = Record<string, any>,

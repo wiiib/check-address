@@ -1,6 +1,6 @@
 import type { MaybePromise, Nullable } from '@voire/type-utils'
 import { Contract } from 'ethers'
-import type { HexString, IJsonRpcProvider } from '../models'
+import type { HexString, IJsonRpcProvider } from '../../models'
 
 export const getMetadata = async <
   TMetadata extends Record<string, any> = Record<string, any>,
