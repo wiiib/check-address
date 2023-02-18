@@ -1,5 +1,5 @@
 {
-  "name": "@wiiib/check-address",
+  "name": "@wiiib/check-evm-address",
   "description": "Utils for getting web3 contracts' data and checking whether they belong to certain standards.",
   "version": "0.0.0-development",
   "license": "MIT",
