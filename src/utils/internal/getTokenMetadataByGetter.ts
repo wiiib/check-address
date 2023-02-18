@@ -11,7 +11,7 @@ export interface TokenMetadataReturnType<
   onCancel?: () => void
 }
 
-export const getTokenMetadata = async <
+export const getTokenMetadataByGetter = async <
   TMetadata extends Record<string, any> = Record<string, any>,
 >(
   address: Nullable<HexString>,
@@ -22,23 +22,21 @@ export const getTokenMetadata = async <
 ): Promise<TokenMetadataReturnType<TMetadata>> => {
   const contract = new Contract(address, abi, provider)
 
-  if (tokenId && contract) {
-    try {
-      const tokenUri = await uriGetter(contract, tokenId.toString())
+  if (tokenId) {
+    const tokenUri = await uriGetter(contract, tokenId.toString())
 
-      if (tokenUri) {
-        const abortController = new AbortController()
+    if (tokenUri) {
+      const abortController = new AbortController()
 
-        const httpUri = resolveIpfs(tokenUri)
-        const tokenUriResponse = await ofetch<TMetadata>(httpUri, {
-          signal: abortController.signal,
-        })
-        return {
-          metadata: resolveIpfs(tokenUriResponse) ?? null,
-          onCancel: () => abortController.abort(),
-        }
+      const httpUri = resolveIpfs(tokenUri)
+      const tokenUriResponse = await ofetch<TMetadata>(httpUri, {
+        signal: abortController.signal,
+      })
+      return {
+        metadata: resolveIpfs(tokenUriResponse) ?? null,
+        onCancel: () => abortController.abort(),
       }
-    } catch (e) {}
+    }
   }
 
   return {

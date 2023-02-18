@@ -1,3 +1,3 @@
 export * from './callWithFallback'
-export * from './getMetadata'
-export * from './getTokenMetadata'
+export * from './getMetadataByGetter'
+export * from './getTokenMetadataByGetter'

@@ -1,7 +1,7 @@
 import type { Nullable } from '@voire/type-utils'
 import type { HexString, IJsonRpcProvider } from '../models'
 import { IERC1155MetadataAbi } from '../consts'
-import { callWithFallback, getTokenMetadata } from './internal'
+import { callWithFallback, getTokenMetadataByGetter } from './internal'
 import { checkInterfaces } from './checkInterfaces'
 
 export const getErc1155TokenMetadata = async (
@@ -14,7 +14,7 @@ export const getErc1155TokenMetadata = async (
     throw new Error('Provided address doesn\'t represent a contract which supports IERC1155MetadataURI interface!')
   }
 
-  return getTokenMetadata(
+  return getTokenMetadataByGetter(
     address,
     provider,
     tokenId,
