@@ -51,7 +51,7 @@ jobs:
 
       - name: Test
         run: |
-          pnpm run test
+          VITE_INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }} pnpm run test
 
       - name: Build artifacts
         run: |
