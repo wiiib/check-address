@@ -7,6 +7,7 @@
   "author": "Pavel Yankovski <https://github.com/pyncz>",
   "keywords": [
     "typescript",
+    "ethereum",
     "web3"
   ],
   "scripts": {
