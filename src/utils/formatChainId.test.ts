@@ -26,6 +26,12 @@ describe('formatChainId', () => {
     expect(intId).toBe(56)
   })
 
+  test('should format IDs correctly when a decimal ID is passed as a string', () => {
+    const { hexId, intId } = formatChainId('1')
+    expect(hexId).toBe('0x1')
+    expect(intId).toBe(1)
+  })
+
   test('should throw an exception if an incorrect ID is passed', () => {
     expect(() => formatChainId(0)).toThrowError()
   })
