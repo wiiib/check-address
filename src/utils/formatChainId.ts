@@ -1,7 +1,6 @@
 import type { Optional } from '@voire/type-utils'
-import type { ChainID } from '../models'
 
-export const formatChainId = (id: ChainID) => {
+export const formatChainId = (id: number | string) => {
   const intId: Optional<number> = +id
     ? +id
     : undefined // NaN, 0 etc
