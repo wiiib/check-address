@@ -1,11 +1,11 @@
 import type { Nullable } from '@voire/type-utils'
-import type { HexString, IJsonRpcProvider } from '../models'
+import type { Address, IJsonRpcProvider } from '../models'
 import { IERC1155MetadataAbi } from '../consts'
 import { callWithFallback, getTokenMetadataByGetter } from './internal'
 import { checkInterfaces } from './checkInterfaces'
 
 export const getErc1155TokenMetadata = async (
-  address: Nullable<HexString>,
+  address: Nullable<Address>,
   provider: Nullable<IJsonRpcProvider>,
   tokenId: Nullable<string | number>,
 ) => {

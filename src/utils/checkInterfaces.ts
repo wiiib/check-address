@@ -1,7 +1,7 @@
 import type { Nullable } from '@voire/type-utils'
 import { Contract } from 'ethers'
 import { ERC165Abi, ERC20Abi, WHITE_ADDRESS } from '../consts'
-import type { ContractInterface, HexString, IJsonRpcProvider } from '../models'
+import type { Address, ContractInterface, IJsonRpcProvider } from '../models'
 import { ContractInterfaceId, ContractType } from '../models'
 import { checkCode } from './checkCode'
 
@@ -13,7 +13,7 @@ export type CheckInterfacesReturnType = InterfacesMap & {
 }
 
 export const checkInterfaces = async (
-  address: Nullable<HexString>,
+  address: Nullable<Address>,
   provider: Nullable<IJsonRpcProvider>,
 ): Promise<CheckInterfacesReturnType> => {
   const { isContract } = await checkCode(address, provider)

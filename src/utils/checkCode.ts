@@ -1,8 +1,8 @@
 import type { Nullable } from '@voire/type-utils'
-import type { HexString, IJsonRpcProvider } from '../models'
+import type { Address, IJsonRpcProvider } from '../models'
 
 export const checkCode = async (
-  address: Nullable<HexString>,
+  address: Nullable<Address>,
   provider: Nullable<IJsonRpcProvider>,
 ) => {
   const code = address && provider

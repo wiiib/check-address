@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import {
   ethereumAccountAddresses,
+  ethereumEnsAccountAddresses,
   ethereumErc1155Addresses,
   ethereumErc20Addresses,
   ethereumErc721Addresses,
@@ -28,6 +29,11 @@ describe.concurrent('checkCode', () => {
 
   test('should not detect just a regular address', async () => {
     const { isContract } = await checkCode(ethereumAccountAddresses[0], provider)
+    expect(isContract).toBe(false)
+  })
+
+  test('should work with ENS addresses', async () => {
+    const { isContract } = await checkCode(ethereumEnsAccountAddresses[0], provider)
     expect(isContract).toBe(false)
   })
 })

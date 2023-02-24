@@ -1,7 +1,7 @@
 import { Contract } from 'ethers'
 import type { MaybePromise, Nullable } from '@voire/type-utils'
 import { ofetch } from 'ofetch'
-import type { HexString, IJsonRpcProvider } from '../../models'
+import type { Address, IJsonRpcProvider } from '../../models'
 import { resolveIpfs } from '../resolveIPFS'
 
 export interface TokenMetadataReturnType<
@@ -14,7 +14,7 @@ export interface TokenMetadataReturnType<
 export const getTokenMetadataByGetter = async <
   TMetadata extends Record<string, any> = Record<string, any>,
 >(
-  address: Nullable<HexString>,
+  address: Nullable<Address>,
   provider: Nullable<IJsonRpcProvider>,
   tokenId: Nullable<string | number>,
   abi: Nullable<any>,
