@@ -61,7 +61,7 @@ jobs:
 
       - name: Semantic release
         id: release
-        run: npx semantic-release
+        uses: codfish/semantic-release-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
