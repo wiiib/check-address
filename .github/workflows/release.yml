@@ -16,10 +16,10 @@ jobs:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           message: |
-            🚀 Creating release for ${{ github.repository }}...
+            🚀 Starting workflow for ${{ github.repository }}...
 
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     outputs:
       published: ${{ steps.release.outputs.new-release-published }}
       version: ${{ steps.release.outputs.release-version }}
@@ -73,7 +73,7 @@ jobs:
       - build
     steps:
       - name: Notification about publishing
-        if: ${{ needs.build.outputs.published }}
+        if: ${{ needs.build.outputs.published == 'true' }}
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -82,7 +82,7 @@ jobs:
             ✨ Release for ${{ github.repository }}@${{ needs.build.outputs.version }} has been created!
 
       - name: Notification about skipping
-        if: ${{ !needs.build.outputs.published }}
+        if: ${{ needs.build.outputs.published == 'false' }}
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
