@@ -1,12 +1,11 @@
-import type { Nullable } from '@voire/type-utils'
 import type { Address, Erc20Metadata, Erc721Metadata, IJsonRpcProvider } from '../models'
 import { ERC20Abi, IERC721MetadataAbi } from '../consts'
 import { callWithFallback, getMetadataByGetter } from './internal'
 import { checkInterfaces } from './checkInterfaces'
 
 export const getMetadata = async (
-  address: Nullable<Address>,
-  provider: Nullable<IJsonRpcProvider>,
+  address: Address,
+  provider: IJsonRpcProvider,
 ) => {
   const {
     isIERC721Metadata,

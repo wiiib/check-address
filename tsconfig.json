@@ -6,6 +6,7 @@
     "moduleResolution": "node",
     "sourceMap": false,
     "declaration": true,
+    "strict": true,
     "esModuleInterop": true,
     "newLine": "LF",
     "forceConsistentCasingInFileNames": true,

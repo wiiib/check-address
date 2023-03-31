@@ -43,5 +43,6 @@ export function resolveIpfs<T>(
       }, {} as Record<string, any>) as T
     }
   }
+
   return obj
 }
