@@ -27,21 +27,67 @@ describe('resolveIPFS', () => {
   })
 
   test('should work for multiple occurances', () => {
-    const nestedIpfsHash = 'aaasarsxteg5vlpaz2wlhcvucetaa7z7v1zzvwadnp4nva'
-    const nestedIpfsLink = `ipfs://${nestedIpfsHash}`
+    const altIpfsHash = 'aaasarsxteg5vlpaz2wlhcvucetaa7z7v1zzvwadnp4nva'
+    const altIpfsLink = `ipfs://${altIpfsHash}`
 
     const ipfsGatewayResolvedObject = resolveIpfs({
-      uri: ipfsLink,
+      uri1: ipfsLink,
+      uri2: altIpfsLink,
       nested: {
-        uri: nestedIpfsLink,
+        uri: altIpfsLink,
       },
     })
 
     expect(ipfsGatewayResolvedObject).toMatchObject({
-      uri: `https://gateway.pinata.cloud/ipfs/${ipfsHash}`,
+      uri1: `https://gateway.pinata.cloud/ipfs/${ipfsHash}`,
+      uri2: `https://gateway.pinata.cloud/ipfs/${altIpfsHash}`,
       nested: {
-        uri: `https://gateway.pinata.cloud/ipfs/${nestedIpfsHash}`,
+        uri: `https://gateway.pinata.cloud/ipfs/${altIpfsHash}`,
       },
     })
+  })
+
+  test('should work with arrays', () => {
+    const ipfsGatewayResolvedObject = resolveIpfs([
+      ipfsLink,
+      'A regular value',
+      42,
+    ])
+
+    expect(ipfsGatewayResolvedObject).toMatchObject([
+      `https://gateway.pinata.cloud/ipfs/${ipfsHash}`,
+      'A regular value',
+      42,
+    ])
+  })
+
+  test('should work with mixed values', () => {
+    const ipfsGatewayResolvedObject = resolveIpfs([
+      ipfsLink,
+      [
+        {},
+        ipfsLink,
+        3,
+      ],
+      [],
+      {
+        test: ipfsLink,
+      },
+      42,
+    ])
+
+    expect(ipfsGatewayResolvedObject).toMatchObject([
+      `https://gateway.pinata.cloud/ipfs/${ipfsHash}`,
+      [
+        {},
+        `https://gateway.pinata.cloud/ipfs/${ipfsHash}`,
+        3,
+      ],
+      [],
+      {
+        test: `https://gateway.pinata.cloud/ipfs/${ipfsHash}`,
+      },
+      42,
+    ])
   })
 })
