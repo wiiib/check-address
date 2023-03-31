@@ -123,8 +123,8 @@ resolveIpfsString('ipfs://...SOME_HASH...', customResolver)
 ### `resolveIpfs`
 This method accepts any value and tries to resolve all the IPFS links recursively.
 ```ts
-resolveIpfs([{ uri: 'ipfs://HASH' }, 'nothing', 42])
-// > [{ uri: 'https://gateway.pinata.cloud/ipfs/HASH' }, 'nothing', 42]
+resolveIpfs([{ uri: 'ipfs://...SOME_HASH...' }, 'nothing', 42])
+// > [{ uri: 'https://gateway.pinata.cloud/ipfs/...SOME_HASH...' }, 'nothing', 42]
 ```
 
 For string inputs, it works just like [`resolveIpfsString`](#resolveIpfsString).
@@ -132,8 +132,10 @@ For inputs that aren't strings nor objects nor arrays, the input value will be r
 
 Custom resolvers are allowed as well:
 ```ts
-resolveIpfs([{ uri: 'ipfs://HASH' }, 'nothing', 42])
-// > [{ uri: 'https://gateway.pinata.cloud/ipfs/HASH' }, 'nothing', 42]
+resolveIpfs([{ uri: 'ipfs://...SOME_HASH...' }, 'nothing', 42], {
+  resolver: (link) => `https://your-gateway.io/${link.replace(/^ipfs:\/\//, '')}`,
+})
+// > [{ uri: 'https://your-gateway.io/...SOME_HASH...' }, 'nothing', 42]
 ```
 
 ## Additional helpers
