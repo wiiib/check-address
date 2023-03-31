@@ -8,6 +8,7 @@ export const getTokenMetadata = async (
   address: Nullable<Address>,
   provider: Nullable<IJsonRpcProvider>,
   tokenId: Nullable<string | number>,
+  abortSignal?: AbortSignal,
 ) => {
   const {
     isIERC721Metadata,
@@ -21,6 +22,7 @@ export const getTokenMetadata = async (
       tokenId,
       IERC721MetadataAbi,
       (contract, id) => callWithFallback<string>(() => contract.tokenURI(id)),
+      abortSignal,
     )
   }
 
@@ -31,6 +33,7 @@ export const getTokenMetadata = async (
       tokenId,
       IERC1155MetadataAbi,
       (contract, id) => callWithFallback<string>(() => contract.uri(id)),
+      abortSignal,
     )
   }
 

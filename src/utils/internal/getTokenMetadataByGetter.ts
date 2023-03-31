@@ -8,17 +8,17 @@ export interface TokenMetadataReturnType<
   TMetadata extends Record<string, any> = Record<string, any>,
 > {
   metadata: Nullable<TMetadata>
-  onCancel?: () => void
 }
 
 export const getTokenMetadataByGetter = async <
   TMetadata extends Record<string, any> = Record<string, any>,
 >(
-  address: Nullable<Address>,
-  provider: Nullable<IJsonRpcProvider>,
-  tokenId: Nullable<string | number>,
-  abi: Nullable<any>,
+  address: Address,
+  provider: IJsonRpcProvider,
+  tokenId: string | number,
+  abi: any,
   uriGetter: (contract: Contract, tokenId: string) => MaybePromise<Nullable<string>>,
+  abortSignal?: AbortSignal,
 ): Promise<TokenMetadataReturnType<TMetadata>> => {
   const contract = new Contract(address, abi, provider)
 
@@ -26,15 +26,12 @@ export const getTokenMetadataByGetter = async <
     const tokenUri = await uriGetter(contract, tokenId.toString())
 
     if (tokenUri) {
-      const abortController = new AbortController()
-
       const httpUri = resolveIpfs(tokenUri)
       const tokenUriResponse = await ofetch<TMetadata>(httpUri, {
-        signal: abortController.signal,
+        signal: abortSignal,
       })
       return {
         metadata: resolveIpfs(tokenUriResponse) ?? null,
-        onCancel: () => abortController.abort(),
       }
     }
   }

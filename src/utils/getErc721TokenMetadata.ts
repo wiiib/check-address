@@ -8,6 +8,7 @@ export const getErc721TokenMetadata = async (
   address: Nullable<Address>,
   provider: Nullable<IJsonRpcProvider>,
   tokenId: Nullable<string | number>,
+  abortSignal?: AbortSignal,
 ) => {
   const { isIERC721Metadata } = await checkInterfaces(address, provider)
   if (!isIERC721Metadata) {
@@ -20,5 +21,6 @@ export const getErc721TokenMetadata = async (
     tokenId,
     IERC721MetadataAbi,
     (contract, id) => callWithFallback<string>(() => contract.tokenURI(id)),
+    abortSignal,
   )
 }
